@@ -4,7 +4,7 @@
 #include "components/image.hpp"
 #include "components/animation.hpp"
 #include "components/animation_controller.hpp"
-#include "components/music.hpp"
+#include "components/audio.hpp"
 #include "sdl2core.hpp"
 #include "stage.hpp"
 #include "menu.hpp"
@@ -24,10 +24,11 @@ int main(int, char **){
     GameObject background_menu("background_menu");
     ImageComponent background_menu_image(background_menu,"imageBackground_menu", "assets/sprites/menu.png");
 
-    Music menu_music(background_menu, "menu_musicBackground", "assets/music/dk_menu.mp3");
+    //Objeto atrelado, ID para audio, caminho, is_music e play_on_start(default é true)
+    AudioComponent menu_music(background_menu, "menu_music", "assets/music/dk_menu.mp3", true);
 
-    background_menu.add_component(background_menu_image);
     background_menu.add_component(menu_music);
+    background_menu.add_component(background_menu_image);
 
     menu.add_game_object(background_menu);
 
@@ -38,11 +39,11 @@ int main(int, char **){
     GameObject background_stage("background_stage");
     ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png");
 
-    Music stage_music(background_stage, "stage_music", "assets/music/dk_stage.mp3");
+    AudioComponent stage_music(background_stage, "stage_music", "assets/music/dk_stage.mp3", true);
 
 
-    background_stage.add_component(background_stage_image);
     background_stage.add_component(stage_music);
+    background_stage.add_component(background_stage_image);
 
     stage.add_game_object(background_stage);
 
