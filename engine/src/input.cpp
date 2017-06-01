@@ -17,7 +17,6 @@ void InputManager::gather_input(SDL_Event event){
 }
 
 bool InputManager::is_button_down(const std::string & button_name) const{
-    Log::instance.info("Button " + button_name + " are pressed !");
     auto button_id = m_buttons.at(button_name);
     for(auto evt: m_updated){
         switch(evt.type) {
