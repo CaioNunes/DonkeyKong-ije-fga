@@ -8,6 +8,7 @@
 #include "sdl2core.hpp"
 #include "stage.hpp"
 #include "menu.hpp"
+#include "player.hpp"
 
 using namespace engine;
 
@@ -41,10 +42,22 @@ int main(int, char **){
 
     AudioComponent stage_music(background_stage, "stage_music", "assets/music/dk_stage.mp3", true);
 
-
     background_stage.add_component(stage_music);
     background_stage.add_component(background_stage_image);
 
+    GameObject donkey_player("donkey_player", true, "donkey_player");
+    AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
+
+    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey.png", 930/15 , 47, 15);
+    donkey_swim.setDelay(200);
+
+    donkeyCtrl.add_animation("donkey_swim", donkey_swim);
+
+    donkey_player.add_component(donkey_swim);
+    donkey_player.add_component(donkeyCtrl);
+    donkey_player.main_positionY = 400;
+
+    stage.add_game_object(donkey_player);
     stage.add_game_object(background_stage);
 
     Game::instance.run();
