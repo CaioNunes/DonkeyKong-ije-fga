@@ -10,9 +10,8 @@
 
 #include "Timer.hpp"
 #include "scene.hpp"
-#include "mouse.hpp"
-#include "Keyboard.hpp"
 #include "collision_manager.hpp"
+#include "input.hpp"
 
 enum class State{
     created,
@@ -57,11 +56,11 @@ namespace engine{
 
         bool handle_scene_changes();
 
+        inline const InputManager &input_manager() const { return m_input_manager; }
+
         SDL_Renderer* main_canvas;
 
         Timer *timer;
-        Mouse *mouse;
-        Keyboard* keyboard;
         CollisionManager* collision_manager;
 
     private:
@@ -80,6 +79,8 @@ namespace engine{
         Scene *current_scene;
         Scene *last_current_scene;
         Scene *next_scene;
+
+        InputManager m_input_manager;
 
         std::unordered_map <std::string, Scene *> scenes_list;
     };
