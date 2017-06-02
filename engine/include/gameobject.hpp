@@ -10,6 +10,7 @@
 
 #include "sdl2core.hpp"
 #include "components/component.hpp"
+#include "Logger.hpp"
 
 namespace engine{
 

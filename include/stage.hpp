@@ -12,5 +12,4 @@ class StageScene : public Scene{
         ~StageScene();
 
     void game_logic();
-
 };

@@ -18,13 +18,13 @@ bool Animation::init(){
     SDL_Surface *image = IMG_Load(main_path.c_str());
 
     if(image == NULL){
-        // SDL_IMG_ERROR("Could not load image from path !" << main_path);
+        Log::instance.info("Could not load Animation");
     }
 
     main_texture = SDL_CreateTextureFromSurface(Game::instance.main_canvas, image);
 
     if(main_texture == NULL){
-        // SDL_ERROR("Could not create texture from image");
+        Log::instance.info("Could not load texture");
         return false;
     }
 
@@ -95,7 +95,6 @@ void Animation::setup(){
 }
 
 void Animation::draw(){
-
     SDL_Rect *renderQuad = new SDL_Rect();
     renderQuad->x = _main_game_object->main_positionX;
     renderQuad->y = _main_game_object->main_positionY;
@@ -113,4 +112,3 @@ void Animation::draw(){
 
     SDL_RenderCopyEx(Game::instance.main_canvas, main_texture, imageVector[main_frame] , renderQuad, 0, NULL, flip);
 }
-

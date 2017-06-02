@@ -43,16 +43,19 @@ bool Scene::remove_game_object(const std::string &id){
 }
 
 bool Scene::init(){
-    Log::instance.info("Inicializando cena '" + scene_name +"'.");
-
-    //Iterando o mapa e inicilizando cada um dos game objects.
-    for(auto id_obj: scene_objects){
+    //INFO("Init scene " << name);
+    for (auto id_obj: scene_objects)
+    {
         auto obj = id_obj.second;
-        if(obj->state() == GameObject::State::enabled && obj->init() == false)
+        if (obj->init() == false)
+        {
+            //WARN("Could not init game object " << obj->name());
             return false;
+        }
+
     }
 
-    return true;
+return true;
 }
 
 bool Scene::shutdown(){
@@ -97,7 +100,7 @@ std::list <GameObject *> * Scene::get_collide_objects(){
 	 collide_objects.push_back(obj);
     }
 
-    return &collide_objects; 
+    return &collide_objects;
 }
 
 void Scene::clear_collide_objects(){
