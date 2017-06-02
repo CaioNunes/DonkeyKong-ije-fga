@@ -71,7 +71,7 @@ int main(int, char **){
     donkey_player.main_positionY = 0;
 
     stage.add_game_object(music_background);
-    // stage.add_game_object(maps);
+    stage.add_game_object(maps);
     stage.add_game_object(donkey_player);
     stage.add_game_object(background_stage);
 
