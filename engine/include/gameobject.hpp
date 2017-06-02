@@ -51,12 +51,6 @@ namespace engine{
         //funcao que busca um component a partir do seu id.
         Component* get_component(std::string name);
 
-        // template<typename T> T *get_component(){
-        //     return dynamic_cast<T *>(main_components[std::type_index(typeid(T))].front());
-        // }
-
-        // template<typename T> std::list<Component *> get_components();
-
         inline std::string name() const {return main_name;}
         inline State state() const {return main_state;}
         inline void set_size(int width, int height) {main_width = width; main_height = height;}
@@ -71,12 +65,10 @@ namespace engine{
     private:
         State main_state;
         std::string main_name;
-
         /*Mapa não ordenado que vai armazenar todos os componentes do game object. A chave será definida pelo
         tipo do componente, e o valor será uma lista de componentes daquele tipo (Sprites,audios,etc)*/
         std::unordered_map <std::type_index, std::list<Component *> > main_components;
     };
-
 }
 
 #endif

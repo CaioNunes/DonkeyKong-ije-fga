@@ -12,56 +12,44 @@ void PlayerController::update(){
 
 void PlayerController::move_player(){
     //Move down
-    if(Game::instance.input_manager().is_button_down("down")){
+    if(Game::instance.input_manager().is_button_down("down"))
         walkDown = true;
-    }
 
-    if(Game::instance.input_manager().is_button_up("down")){
+    if(Game::instance.input_manager().is_button_up("down"))
         walkDown = false;
-    }
 
-    if(walkDown){
+    if(walkDown)
         _main_game_object->main_positionY += moveForceDown;
-    }
 
     //Move Up
-    if(Game::instance.input_manager().is_button_down("up")){
+    if(Game::instance.input_manager().is_button_down("up"))
         walkUp = true;
-    }
 
-    if(Game::instance.input_manager().is_button_up("up")){
+    if(Game::instance.input_manager().is_button_up("up"))
         walkUp = false;
-    }
 
-    if(walkUp){
+    if(walkUp)
         _main_game_object->main_positionY -= moveForceUp;
-    }
 
     //Move Right
-    if(Game::instance.input_manager().is_button_down("right")){
+    if(Game::instance.input_manager().is_button_down("right"))
         walkRight = true;
-    }
 
-    if(Game::instance.input_manager().is_button_up("right")){
+    if(Game::instance.input_manager().is_button_up("right"))
         walkRight = false;
-    }
 
-    if(walkRight){
+    if(walkRight)
         _main_game_object->main_positionX += moveSide;
-    }
 
     //Move Left
-    if(Game::instance.input_manager().is_button_down("left")){
+    if(Game::instance.input_manager().is_button_down("left"))
         walkLeft = true;
-    }
 
-    if(Game::instance.input_manager().is_button_up("left")){
+    if(Game::instance.input_manager().is_button_up("left"))
         walkLeft = false;
-    }
 
-    if(walkLeft){
+    if(walkLeft)
         _main_game_object->main_positionX -= moveSide;
-    }
 }
 
 PlayerController::~PlayerController(){}

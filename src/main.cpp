@@ -68,7 +68,7 @@ int main(int, char **){
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
 
-    donkey_player.main_positionY = 0;
+    donkey_player.main_positionY = 305;
 
     stage.add_game_object(music_background);
     stage.add_game_object(maps);
