@@ -12,7 +12,7 @@ using namespace engine;
 class PlayerController : public Component{
 public:
   PlayerController(GameObject &_main_game_object, std::string component_id):
-    Component(_main_game_object,component_id), walkDown(false){}
+    Component(_main_game_object,component_id), walkDown(true), walkUp(false){}
 
     ~PlayerController();
 
@@ -23,6 +23,8 @@ public:
 
 private:
     bool walkDown;
+    bool walkUp;
+
 };
 
 #endif

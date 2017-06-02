@@ -56,7 +56,7 @@ namespace engine{
 
         bool handle_scene_changes();
 
-        inline const InputManager &input_manager() const { return m_input_manager; }
+        inline InputManager &input_manager(){ return m_input_manager; }
 
         SDL_Renderer* main_canvas;
 

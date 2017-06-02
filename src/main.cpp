@@ -59,7 +59,7 @@ int main(int, char **){
 
     PlayerController player_controller(donkey_player, "donkey_player");
 
-    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey.png", 2790/15 , 141, 15);
+    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey_resized.png", 1790/15 , 90, 15);
     donkey_swim.setDelay(100);
 
     donkeyCtrl.add_animation("donkey_swim", donkey_swim);
@@ -67,11 +67,11 @@ int main(int, char **){
     donkey_player.add_component(donkey_swim);
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
-    
+
     donkey_player.main_positionY = 0;
 
     stage.add_game_object(music_background);
-    stage.add_game_object(maps);
+    // stage.add_game_object(maps);
     stage.add_game_object(donkey_player);
     stage.add_game_object(background_stage);
 
