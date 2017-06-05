@@ -6,6 +6,7 @@
 #include <list>
 #include "sdl2core.hpp"
 #include "gameobject.hpp"
+#include <vector>
 
 namespace engine{
 
@@ -27,13 +28,13 @@ namespace engine{
             virtual ~Scene(){}
 
             //Add and check if it already exists. If success, return true
-           virtual bool add_game_object(GameObject &obj);
+           virtual bool add_game_object(GameObject *obj);
 
             //Search for a specific GameObject by ID
-            GameObject &get_game_object(const std::string &id);
+            // GameObject &get_game_object(const std::string &id);
 
             //Erase GameObject, find it by ID and remove.
-           virtual bool remove_game_object(const std::string &id);
+        //    virtual bool remove_game_object(const std::string &id);
 
             //Initialization of scene
             virtual bool init();
@@ -44,18 +45,18 @@ namespace engine{
             //Check on map and initialize each game object. Return true if success
             virtual bool draw();
 
-           
+
             std::list<GameObject*> *get_collide_objects();
             void clear_collide_objects();
    //gamelogic
             virtual void game_logic();
-
+            void print_scene_objects();
             inline std::string name() const { return scene_name; }
 
             void update();
         protected:
             std::string scene_name;
-            std::unordered_map <std::string, GameObject *> scene_objects;
+            std::vector <GameObject *> scene_objects;
             std::list <GameObject *> collide_objects;
 
             State scene_state;
