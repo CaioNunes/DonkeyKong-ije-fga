@@ -1,8 +1,13 @@
 #include "gameobject.hpp"
 #include "components/image.hpp"
 #include "components/animation.hpp"
+#include <algorithm>
 
 using namespace engine;
+
+bool compare(Component* a, Component* b){
+    return a->get_priority() < b->get_priority();
+}
 
 bool GameObject::init(){
     Log::instance.info("Init game object " + main_name);
@@ -53,7 +58,10 @@ void GameObject::add_component(Component &component){
     Log::instance.info("Adding component: '" + component.component_id + "' to game object: '" + main_name + "'.");
     //Adiciona o componente no fim da lista referente ao tipo do mesmo.
     main_components[std::type_index(typeid(component))].push_back(&component);
-
+    if(dynamic_cast<ImageComponent *>(&component))
+        sort(main_components[std::type_index(typeid(ImageComponent))].begin(),main_components[std::type_index(typeid(ImageComponent))].end(), compare);
+    else if(dynamic_cast<Animation *>(&component))
+        sort(main_components[std::type_index(typeid(Animation))].begin(),main_components[std::type_index(typeid(Animation))].end(), compare);
 }
 
 void GameObject::update(){

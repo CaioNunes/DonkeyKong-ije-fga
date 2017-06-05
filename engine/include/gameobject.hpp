@@ -7,6 +7,7 @@
 #include <list>
 #include <typeindex>
 #include <typeinfo>
+#include <vector>
 
 #include "sdl2core.hpp"
 #include "components/component.hpp"
@@ -59,7 +60,7 @@ namespace engine{
         int main_width, main_height;
         int main_rotation;
         bool m_collision;
-
+        int priority;
         std::string type;
 
     private:
@@ -67,7 +68,7 @@ namespace engine{
         std::string main_name;
         /*Mapa não ordenado que vai armazenar todos os componentes do game object. A chave será definida pelo
         tipo do componente, e o valor será uma lista de componentes daquele tipo (Sprites,audios,etc)*/
-        std::unordered_map <std::type_index, std::list<Component *> > main_components;
+        std::unordered_map <std::type_index, std::vector<Component *> > main_components;
     };
 }
 

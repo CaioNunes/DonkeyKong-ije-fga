@@ -23,7 +23,7 @@ int main(int, char **){
     Game::instance.add_scene(menu);
 
     GameObject background_menu("background_menu");
-    ImageComponent background_menu_image(background_menu,"imageBackground_menu", "assets/sprites/menu.png");
+    ImageComponent background_menu_image(background_menu,"imageBackground_menu", "assets/sprites/menu.png",1);
 
     //Objeto atrelado, ID para audio, caminho, is_music e play_on_start(default é true)
     AudioComponent menu_music(background_menu, "menu_music", "assets/music/dk_menu.mp3", true);
@@ -40,7 +40,7 @@ int main(int, char **){
     GameObject music_background("music_background");
 
     GameObject background_stage("background_stage");
-    ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png");
+    ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png", 2);
 
     AudioComponent stage_music(music_background, "stage_music", "assets/music/dk_stage.mp3", true);
 
@@ -48,7 +48,7 @@ int main(int, char **){
     background_stage.add_component(background_stage_image);
 
     GameObject maps("maps");
-    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png");
+    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
 
     maps.main_positionY = -2220;
 
@@ -59,7 +59,7 @@ int main(int, char **){
 
     PlayerController player_controller(donkey_player, "donkey_player");
 
-    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey_resized.png", 1790/15 , 90, 15);
+    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey_resized.png", 1, 1790/15 , 90, 15);
     donkey_swim.setDelay(100);
 
     donkeyCtrl.add_animation("donkey_swim", donkey_swim);
