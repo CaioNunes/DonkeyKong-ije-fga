@@ -1,4 +1,5 @@
 #include "scene.hpp"
+#include <algorithm>
 
 using namespace engine;
 
@@ -9,51 +10,49 @@ bool compare_scene(engine::GameObject* a, GameObject *b){
     return a->priority < b->priority;
 }
 
-bool Scene::add_game_object(GameObject &obj){
-    auto id = obj.name();
+bool Scene::add_game_object(GameObject *obj){
+    auto id = obj->name();
     Log::instance.info("Adding GameObject '"+ id +"' to scene '" + scene_name +"'.");
 
     //Iterando mapa para ver se aquele game object já existe nela
-    if (scene_objects.find(id) != scene_objects.end()){
-        Log::instance.warning("Game object já existe!");
-        return false;
-    }
-
-    scene_objects[id] = &obj;
+    // if (scene_objects.find(id) != scene_objects.end()){
+    //     Log::instance.warning("Game object já existe!");
+    //     return false;
+    // }
+    scene_objects.push_back(obj);
+    // scene_objects[id] = &obj;
     sort(scene_objects.begin(), scene_objects.end(), compare_scene);
     return true;
 }
-
-GameObject &Scene::get_game_object(const std::string &id){
-
-    if(scene_objects.find(id) == scene_objects.end()){
-        Log::instance.warning("Não foi possível encontrar o GameObject '" + id +"'.");
-        return INVALID_GAME_OBJECT;
-    }
-
-    return *scene_objects[id];
-}
-
-bool Scene::remove_game_object(const std::string &id){
-
-    Log::instance.info("Removendo GameObject '" + id +"' da Scene.");
-
-    if(scene_objects.find(id) == scene_objects.end()){
-        Log::instance.warning("Não foi possível encontrar o GameObject '" + id +"'.");
-        return false;
-    }
-
-    scene_objects.erase(id);
-    return true;
-}
+//
+// GameObject &Scene::get_game_object(const std::string &id){
+//
+//     if(scene_objects.find(id) == scene_objects.end()){
+//         Log::instance.warning("Não foi possível encontrar o GameObject '" + id +"'.");
+//         return INVALID_GAME_OBJECT;
+//     }
+//
+//     return *scene_objects[id];
+// }
+//
+// bool Scene::remove_game_object(const std::string &id){
+//
+//     Log::instance.info("Removendo GameObject '" + id +"' da Scene.");
+//
+//     if(scene_objects.find(id) == scene_objects.end()){
+//         Log::instance.warning("Não foi possível encontrar o GameObject '" + id +"'.");
+//         return false;
+//     }
+//
+//     scene_objects.erase(id);
+//     return true;
+// }
 
 bool Scene::init(){
     //INFO("Init scene " << name);
-    for (auto id_obj: scene_objects)
-    {
-        auto obj = id_obj.second;
-        if (obj->init() == false)
-        {
+    for (auto id_obj: scene_objects){
+        // auto obj = id_obj.second;
+        if (id_obj->init() == false){
             //WARN("Could not init game object " << obj->name());
             return false;
         }
@@ -68,20 +67,18 @@ bool Scene::shutdown(){
 
     //Iterando o mapa e inicilizando cada um dos game objects.
     for(auto id_obj: scene_objects){
-        auto obj = id_obj.second;
-        if(obj->state() == GameObject::State::enabled && obj->shutdown() == false)
+        // auto obj = id_obj.second;
+        if(id_obj->state() == GameObject::State::enabled && id_obj->shutdown() == false)
             return false;
     }
 
     return true;
 }
 
-void Scene::update()
-{
-    for (auto id_obj: scene_objects)
-    {
-        auto obj = id_obj.second;
-        if (obj->state() == GameObject::State::enabled) obj->update();
+void Scene::update(){
+    for (auto id_obj: scene_objects){
+        // auto obj = id_obj.second;
+        if (id_obj->state() == GameObject::State::enabled) id_obj->update();
     }
 }
 
@@ -89,8 +86,8 @@ bool Scene::draw(){
 
     //Iterando o mapa e inicilizando cada um dos game objects.
     for(auto id_obj: scene_objects){
-        auto obj = id_obj.second;
-       if(obj->state() == GameObject::State::enabled && obj->draw() == false)
+        // auto obj = id_obj.second;
+       if(id_obj->state() == GameObject::State::enabled && id_obj->draw() == false)
             return false;
     }
 
@@ -100,9 +97,9 @@ bool Scene::draw(){
 std::list <GameObject *> * Scene::get_collide_objects(){
     //Iterando o mapa e inicilizando cada um dos game objects.
     for(auto id_obj: scene_objects){
-        auto obj = id_obj.second;
-       if(obj->state() == GameObject::State::enabled && obj->m_collision == true)
-	 collide_objects.push_back(obj);
+        // auto obj = id_obj.second;
+       if(id_obj->state() == GameObject::State::enabled && id_obj->m_collision == true)
+	 collide_objects.push_back(id_obj);
     }
 
     return &collide_objects;

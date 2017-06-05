@@ -40,14 +40,14 @@ int main(int, char **){
     GameObject music_background("music_background", 1);
 
     GameObject background_stage("background_stage", 3);
-    ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png", 2);
+    ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png", 3);
 
     AudioComponent stage_music(music_background, "stage_music", "assets/music/dk_stage.mp3", true);
 
     music_background.add_component(stage_music);
     background_stage.add_component(background_stage_image);
 
-    GameObject maps("maps", 4);
+    GameObject maps("maps", 2);
     ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
 
     maps.main_positionY = -2220;
@@ -70,10 +70,10 @@ int main(int, char **){
 
     donkey_player.main_positionY = 305;
 
-    stage.add_game_object(music_background);
-    stage.add_game_object(maps);
-    stage.add_game_object(donkey_player);
-    stage.add_game_object(background_stage);
+    stage.add_game_object(&music_background);
+    stage.add_game_object(&maps);
+    stage.add_game_object(&donkey_player);
+    stage.add_game_object(&background_stage);
 
     Game::instance.run();
 

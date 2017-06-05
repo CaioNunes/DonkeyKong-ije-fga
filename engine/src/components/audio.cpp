@@ -9,13 +9,13 @@ bool AudioComponent::init(){
     if(m_is_music){
         gMusic = Mix_LoadMUS(main_path.c_str());
 
-        if(gMusic == NULL)
+        if(gMusic == NULL){
             Log::instance.error("Failed to load audio: " + component_id);
             return false;
+        }
     }else{
         //Logic to SOUNDS
     }
-
     return true;
 }
 
