@@ -26,9 +26,9 @@ namespace engine{
         GameObject(): GameObject("",false,"",State::invalid){}
 
         //Constructor
-        GameObject(std::string name,bool collision = false,std::string m_type = "", State state=State::enabled)
+        GameObject(std::string name,bool collision = false,std::string m_type = "", State state=State::enabled, int p_priority=0)
         : main_positionX(0), main_positionY(0), main_width(0), main_height(0), main_rotation(0),m_collision(collision),
-        type(m_type), main_state(state), main_name(name){}
+        type(m_type), main_state(state), main_name(name), priority(p_priority){}
 
         virtual ~GameObject(){};
 

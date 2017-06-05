@@ -5,6 +5,10 @@ using namespace engine;
 //Definição de game object inválido
 GameObject INVALID_GAME_OBJECT;
 
+bool compare_scene(engine::GameObject* a, GameObject *b){
+    return a->priority < b->priority;
+}
+
 bool Scene::add_game_object(GameObject &obj){
     auto id = obj.name();
     Log::instance.info("Adding GameObject '"+ id +"' to scene '" + scene_name +"'.");
@@ -16,6 +20,7 @@ bool Scene::add_game_object(GameObject &obj){
     }
 
     scene_objects[id] = &obj;
+    sort(scene_objects.begin(), scene_objects.end(), compare_scene);
     return true;
 }
 
