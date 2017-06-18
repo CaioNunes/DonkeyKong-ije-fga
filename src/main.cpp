@@ -63,12 +63,19 @@ int main(int, char **){
 
     PlayerController player_controller(donkey_player, "donkey_player", &maps_stage);
 
-    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey_idle.png", 1, 2499/51 , 54, 51);
-    donkey_swim.setDelay(100);
+    // =============== ANIMATIONS =========================
+    Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/walking.png", 1, 980/20, 44, 20);
+    donkey_walking.setDelay(60);
 
-    donkeyCtrl.add_animation("donkey_swim", donkey_swim);
+    donkeyCtrl.add_animation("donkey_walking", donkey_walking);
 
-    donkey_player.add_component(donkey_swim);
+    Animation donkey_idle(donkey_player, "donkey_idle", "assets/sprites/donkey_idle.png", 1, 2499/51 , 54, 51);
+    donkey_idle.setDelay(100);
+
+    donkeyCtrl.add_animation("donkey_idle", donkey_idle);
+
+    donkey_player.add_component(donkey_walking);
+    donkey_player.add_component(donkey_idle);
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
 

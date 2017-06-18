@@ -2,7 +2,8 @@
 
 double moveForceUp = 7;
 double moveForceDown = 2;
-double moveSide = 3;
+// double moveSide = 3;
+double moveSide = 5;
 
 bool PlayerController::init() { return true; }
 
@@ -19,7 +20,7 @@ void PlayerController::move_player(){
         walkDown = false;
 
     if(walkDown){
-        if(back->move_img_down(moveSide, 650)){
+        if(back->move_img_down(moveSide, 700)){
 
         }else{
             _main_game_object->main_positionY += moveForceDown;
@@ -33,7 +34,7 @@ void PlayerController::move_player(){
         walkUp = false;
 
     if(walkUp){
-        if(back->move_img_down(-(moveSide), 650)){
+        if(back->move_img_down(-(moveSide), 700)){
 
         }else{
             _main_game_object->main_positionY -= moveForceUp;
