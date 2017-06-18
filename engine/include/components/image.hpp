@@ -19,15 +19,17 @@ namespace engine{
             bool init();
             bool shutdown();
 
+            void set_back_rect(int pX, int pY, int width, int height);
+            bool move_img_rect(int value);
+            bool move_img_down(int value, int limit);
+
             virtual void draw();
 
         protected:
             //Caminho da imagem
             std::string main_path;
 
-            //Olhar nesse ponto para utilizar nossa pŕopria classe.
             SDL_Texture *main_texture;
-
             SDL_Rect* imagePart = NULL;
     };
 }

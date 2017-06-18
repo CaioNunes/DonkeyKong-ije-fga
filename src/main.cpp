@@ -15,7 +15,7 @@ using namespace engine;
 int main(int, char **){
 
     //Configurando nome e tamanho
-    std::pair<int, int> window_size(800, 600);
+    std::pair<int, int> window_size(640, 480);
     Game::instance.set_properties("Donkey Kong Country",window_size);
 
     // //================================================= MENU =======================================
@@ -42,24 +42,28 @@ int main(int, char **){
     GameObject background_stage("background_stage", 1);
     ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png", 3);
 
-    AudioComponent stage_music(music_background, "stage_music", "assets/music/dk_stage.mp3", true);
+    AudioComponent stage_music(music_background, "stage_music", "assets/music/dk_solo.mp3", true);
 
     music_background.add_component(stage_music);
     background_stage.add_component(background_stage_image);
 
     GameObject maps("maps", 2);
-    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
+    // ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
+    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo_stage_resized.png",2);
 
-    maps.main_positionY = -2220;
+    maps.main_positionY = 0;
+
+    maps_stage.set_back_rect(0, 0, 640,480);
+    // maps_stage.set_back_rect(0, 0, 840,640);
 
     maps.add_component(maps_stage);
 
     GameObject donkey_player("donkey_player", 3);
     AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
 
-    PlayerController player_controller(donkey_player, "donkey_player");
+    PlayerController player_controller(donkey_player, "donkey_player", &maps_stage);
 
-    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey_resized.png", 1, 1790/15 , 90, 15);
+    Animation donkey_swim(donkey_player, "donkey_swim", "assets/sprites/donkey_idle.png", 1, 2499/51 , 54, 51);
     donkey_swim.setDelay(100);
 
     donkeyCtrl.add_animation("donkey_swim", donkey_swim);
@@ -68,7 +72,8 @@ int main(int, char **){
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
 
-    donkey_player.main_positionY = 305;
+    donkey_player.main_positionX = 150;
+    donkey_player.main_positionY = 100;
 
     stage.add_game_object(&music_background);
     stage.add_game_object(&maps);
