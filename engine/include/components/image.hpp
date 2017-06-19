@@ -11,13 +11,17 @@
 namespace engine{
     class ImageComponent : public Component {
         public:
-            ImageComponent(GameObject &main_game_object, std::string id, std::string path)
-            : Component(main_game_object, id), main_path(path){}
+            ImageComponent(GameObject &main_game_object, std::string id, std::string path, int p_priority)
+            : Component(main_game_object, id, p_priority), main_path(path){}
 
             ~ImageComponent(){};
 
             bool init();
             bool shutdown();
+
+            void set_back_rect(int pX, int pY, int width, int height);
+            bool move_img_rect(int value);
+            bool move_img_down(int value, int limit);
 
             virtual void draw();
 
@@ -25,9 +29,7 @@ namespace engine{
             //Caminho da imagem
             std::string main_path;
 
-            //Olhar nesse ponto para utilizar nossa pŕopria classe.
             SDL_Texture *main_texture;
-
             SDL_Rect* imagePart = NULL;
     };
 }

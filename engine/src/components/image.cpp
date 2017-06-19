@@ -32,12 +32,40 @@ bool ImageComponent::init(){
 }
 
 bool ImageComponent::shutdown(){
-    Log::instance.info("Shutdown ImageComponent");
+    Log::instance.info("Shutdown ImageComponent : '"+ component_id + "'.");
 
     SDL_DestroyTexture(main_texture);
     main_texture = NULL;
 
     return true;
+}
+
+void ImageComponent::set_back_rect(int pX, int pY, int width, int height){
+    imagePart = new SDL_Rect();
+    imagePart->x = pX;
+    imagePart->y = pY;
+    imagePart->w = width;
+    imagePart->h = height;
+}
+
+bool ImageComponent::move_img_rect(int value){
+  if( imagePart->x+ imagePart->w + value < _main_game_object->main_width &&
+      imagePart->x + value > 0){
+      imagePart->x = imagePart->x + value;
+        return true;
+    }
+
+    return false;
+}
+
+bool ImageComponent::move_img_down(int value, int limit){
+    if( imagePart->y+ imagePart->h + value < limit &&
+        imagePart->y + value > 0){
+        imagePart->y = imagePart->y + value;
+        return true;
+      }
+
+      return false;
 }
 
 void ImageComponent::draw(){

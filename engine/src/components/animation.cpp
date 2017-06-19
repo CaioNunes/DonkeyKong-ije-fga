@@ -18,13 +18,13 @@ bool Animation::init(){
     SDL_Surface *image = IMG_Load(main_path.c_str());
 
     if(image == NULL){
-        // SDL_IMG_ERROR("Could not load image from path !" << main_path);
+        Log::instance.info("Could not load Animation");
     }
 
     main_texture = SDL_CreateTextureFromSurface(Game::instance.main_canvas, image);
 
     if(main_texture == NULL){
-        // SDL_ERROR("Could not create texture from image");
+        Log::instance.info("Could not load texture");
         return false;
     }
 
@@ -75,8 +75,26 @@ void Animation::setDelay(int toSetDelay){
     this->delay = toSetDelay;
 }
 
-void Animation::draw(){
+void Animation::flipping(bool isFlip){
+  if(isFlip){
+    flip = SDL_FLIP_HORIZONTAL;
+  }else{
+    flip = SDL_FLIP_NONE;
+  }
+}
 
+bool Animation::has_finished(){
+  if(main_frame == main_animation[END]){
+    return true;
+  }
+  return false;
+}
+
+void Animation::setup(){
+  _main_game_object->set_size(m_widthDiv, m_heightDiv);
+}
+
+void Animation::draw(){
     SDL_Rect *renderQuad = new SDL_Rect();
     renderQuad->x = _main_game_object->main_positionX;
     renderQuad->y = _main_game_object->main_positionY;
@@ -92,14 +110,5 @@ void Animation::draw(){
             main_frame = main_animation[BEGIN];
     }
 
-   // std::cout<<main_frame<<std::endl;
     SDL_RenderCopyEx(Game::instance.main_canvas, main_texture, imageVector[main_frame] , renderQuad, 0, NULL, flip);
-}
-
-void Animation::flipping(bool isFlip){
-  if(isFlip){
-    flip = SDL_FLIP_HORIZONTAL;
-  }else{
-    flip = SDL_FLIP_NONE;
-  }
 }

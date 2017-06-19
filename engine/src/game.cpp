@@ -32,8 +32,7 @@ bool Game::startSDL(){
     }
 
     timer = new Timer();
-    mouse = new Mouse();
-    keyboard = new Keyboard();
+    collision_manager = new CollisionManager();
     return true;
 
 }
@@ -102,24 +101,22 @@ bool Game::createWindow(){
 
                 SDL_Event evt;
 
-                //get mouse position
-                mouse->set_position();
                 while( SDL_PollEvent(&evt) != 0 ){
-                    if( evt.type == SDL_QUIT ){
-                        current_state = State::exit_loop;
+                    switch(evt.type){
+                        case SDL_QUIT:
+                            current_state = State::exit_loop;
+                            break;
+                        default:
+                            m_input_manager.gather_input(evt);
+                            break;
                     }
-
-                    keyboard->setKeys(&evt);
-                    if( evt.type == SDL_KEYDOWN ){
-                        switch (evt.key.keysym.sym) {
-                            case SDLK_SPACE:
-                                //Log::instance.debug("teste teclado");
-                                //Keyboard::isKeyDown(keycode::KEY_SPACE);
-                                break;
-
-                        }
-                    }
+                    // if( evt.type == SDL_QUIT ){
+                    //     current_state = State::exit_loop;
+                    // }
                 }
+		//	current_scene->get_collide_objects();
+                collision_manager->getCollisions(current_scene->get_collide_objects());
+		        current_scene->update();
                 current_scene->game_logic();
                 //Limpa o Canvas visualizado pelo  usuário
                 SDL_RenderClear(main_canvas);
@@ -132,8 +129,10 @@ bool Game::createWindow(){
                     SDL_Delay( timer->get_elapseTime());
                 }
 
-                keyboard->clearKeyboard();
+		        current_scene->clear_collide_objects();
                 timer->set_TimeStep();
+
+                input_manager().clear_input();
             }
 
             Log::instance.info("Cleaning scene...");

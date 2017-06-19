@@ -3,111 +3,100 @@
 #include "scene.hpp"
 #include "components/image.hpp"
 #include "components/animation.hpp"
-#include "components/music.hpp"
+#include "components/animation_controller.hpp"
+#include "components/audio.hpp"
 #include "sdl2core.hpp"
-#include "menu_scene.hpp"
-#include "stage1_scene.hpp"
+#include "stage.hpp"
+#include "menu.hpp"
+#include "player_controller.hpp"
+#include "plataform_controller.hpp"
 
 using namespace engine;
 
 int main(int, char **){
 
     //Configurando nome e tamanho
-    std::pair<int, int> window_size(800, 600);
-    Game::instance.set_properties("Nome do Jogo",window_size);
+    std::pair<int, int> window_size(640, 480);
+    Game::instance.set_properties("Donkey Kong Country",window_size);
 
-    //================================================= MENU =======================================
-    MenuScene menu("Main Menu");
-    Game::instance.add_scene(menu);
+    // //================================================= MENU =======================================
+    // MenuScene menu("Menu");
+    // Game::instance.add_scene(menu);
+    //
+    // GameObject background_menu("background_menu");
+    // ImageComponent background_menu_image(background_menu,"imageBackground_menu", "assets/sprites/menu.png",1);
+    //
+    // //Objeto atrelado, ID para audio, caminho, is_music e play_on_start(default é true)
+    // AudioComponent menu_music(background_menu, "menu_music", "assets/music/dk_menu.mp3", true);
+    //
+    // background_menu.add_component(menu_music);
+    // background_menu.add_component(background_menu_image);
+    //
+    // menu.add_game_object(background_menu);
 
-    GameObject background("background");
-    ImageComponent backgroundImage(background,"imageBackground", "assets/sprites/menu.png");
-    MusicComponent musica(background, "musicaBackground", "assets/music/gm.wav");
+    //================================================= STAGE =======================================
+    StageScene stage("WaterStage");
+    Game::instance.add_scene(stage);
 
-    GameObject menuFire("menuFire");
-    Animation animationFire(menuFire,"imageFire", "assets/sprites/menuFire.png",348/6,76,6);
+    GameObject music_background("music_background", 4);
 
-    GameObject bNew("bNew");
-    Animation image_bNew(bNew,"imageBNew", "assets/sprites/bNew.png",448/2,100,2);
+    GameObject background_stage("background_stage", 1);
+    ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png", 3);
 
-    //cadastrando dois tipos de animação, ado butao normal que pega a imagem de 0 a 0 e a mouseON que pega a imagem de 1 a 1
-    image_bNew.setAnimation("normal",0,0);
-    image_bNew.setAnimation("mouseON",1,1);
+    AudioComponent stage_music(music_background, "stage_music", "assets/music/dk_solo.mp3", true);
 
-    GameObject bLoad("bLoad");
-    Animation image_bLoad(bLoad,"imageBLoad","assets/sprites/bLoad.png",448/2,100,2);
-    image_bLoad.setAnimation("normal",0,0);
-    image_bLoad.setAnimation("mouseON",1,1);
+    music_background.add_component(stage_music);
+    background_stage.add_component(background_stage_image);
 
-    //coloca o tempo que a nimacao do fogo percorre.
-    animationFire.setDelay(100);
+    GameObject maps("maps", 2);
+    // ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
+    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo_stage_resized.png",2);
+    maps.main_positionY = 0;
+    maps_stage.set_back_rect(0, 250, 640,480);
+    // maps_stage.set_back_rect(0, 0, 840,640);
 
-    //Adiciona components aos gameobjects
-    background.add_component(backgroundImage);
-    background.add_component(musica);
-    menuFire.add_component(animationFire);
-    bNew.add_component(image_bNew);
-    bLoad.add_component(image_bLoad);
+    GameObject colisor1("colisor1", 3, true, "ground");
+    colisor1.main_positionX = 150;
+    colisor1.main_positionY = 250;
+    // colisor1.main_positionY = 200;
+    ImageComponent colisorIm(colisor1, "colisor_im", "assets/sprites/retangulo_1.png", 2);
+    PlataformController pc(colisor1, "colisor1");
 
-    //adiciona game objects ao menu
-    menu.add_game_object(menuFire);
-    menu.add_game_object(bNew);
-    menu.add_game_object(bLoad);
-    menu.add_game_object(background);
+    colisor1.add_component(colisorIm);
+    colisor1.add_component(pc);
+    // maps.add_component(maps_stage);
 
-    // =================================== STAGE 1 =======================================
-    Log::instance.jumpLine("Starting configurations && Instantiations\n");
+    GameObject donkey_player("donkey_player", 3);
+    donkey_player.main_positionX = 150;
+    donkey_player.main_positionY = 200;
 
-    //Criando cena da fase
-    Stage1Scene stage1("Fase 1");
-    Game::instance.add_scene(stage1);
+    AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
 
+    PlayerController player_controller(donkey_player, "donkey_player", &maps_stage);
 
-    GameObject player("player");
-    GameObject background_stage1("backgroundForest");
-    GameObject ground_stage1("ground");
+    // =============== ANIMATIONS =========================
+    Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/walking.png", 1, 980/20, 44, 20);
+    donkey_walking.setDelay(60);
 
-    ImageComponent backgroundForest(background_stage1,"backgroundForest", "assets/sprites/backgroundFloresta.png");
+    donkeyCtrl.add_animation("donkey_walking", donkey_walking);
 
-    ImageComponent tile1(ground_stage1, "tile1", "assets/sprites/ChãoMap1.png");
-    ImageComponent tile2(ground_stage1,"tile2", "assets/sprites/ChãoMap2.png");
-    ImageComponent tile3(ground_stage1,"tile3", "assets/sprites/ChãoMap3.png");
-    ImageComponent tile4(ground_stage1,"tile4", "assets/sprites/ChãoMap4.png");
+    Animation donkey_idle(donkey_player, "donkey_idle", "assets/sprites/donkey_idle.png", 1, 2499/51 , 54, 51);
+    donkey_idle.setDelay(100);
 
+    donkeyCtrl.add_animation("donkey_idle", donkey_idle);
 
-    Animation player_idle(player, "playerIdle", "assets/sprites/hero.png",800/8,50, 8);
-    player_idle.setDelay(100);
+    donkey_player.add_component(donkey_walking);
+    donkey_player.add_component(donkey_idle);
+    donkey_player.add_component(donkeyCtrl);
+    donkey_player.add_component(player_controller);
 
-    Animation player_running(player, "playerRunning", "assets/sprites/hero_running.png" ,220/4, 46, 4);
-    player_running.setDelay(100);
+    stage.add_game_object(&music_background);
+    stage.add_game_object(&maps);
+    stage.add_game_object(&donkey_player);
+    stage.add_game_object(&background_stage);
+    stage.add_game_object(&colisor1);
 
-    Animation player_damage(player, "playerDamage", "assets/sprites/damage.png" ,800/8, 50, 8);
-    player_damage.setDelay(100);
-
-    Animation player_attack(player, "playerAttack", "assets/sprites/attack.png" ,836/11, 50, 11);
-    player_attack.setDelay(50);
-
-    player.add_component(player_idle);
-    player.add_component(player_running);
-    player.add_component(player_damage);
-    player.add_component(player_attack);
-    player.main_positionY = 502;
-
-    background_stage1.add_component(backgroundForest);
-
-    ground_stage1.add_component(tile1);
-    ground_stage1.main_positionX = 0;
-    ground_stage1.main_positionY = 552;
-    ground_stage1.add_component(tile2);
-    ground_stage1.add_component(tile3);
-    ground_stage1.add_component(tile4);
-
-    stage1.add_game_object(player);
-    stage1.add_game_object(ground_stage1);
-    stage1.add_game_object(background_stage1);
-    //==================================== GAME LOOP ============================================
-
-    Log::instance.jumpLine("Ending Instantiations. Running Game\n");
+    stage.print_scene_objects();
     Game::instance.run();
 
     return 0;
