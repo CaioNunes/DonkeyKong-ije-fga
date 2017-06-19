@@ -12,8 +12,8 @@ using namespace engine;
 
 class PlayerController : public Component{
 public:
-  PlayerController(GameObject &_main_game_object, std::string component_id, ImageComponent *background):
-    Component(_main_game_object,component_id), walkDown(false), walkUp(false),
+  PlayerController(GameObject &main_game_object, std::string id, ImageComponent *background):
+    Component(main_game_object,id), walkDown(false), walkUp(false),
                                                walkLeft(false), walkRight(false), back(background){}
 
     ~PlayerController();

@@ -59,12 +59,12 @@ int main(int, char **){
     colisor1.main_positionX = 150;
     colisor1.main_positionY = 250;
     // colisor1.main_positionY = 200;
-    ImageComponent colisorIm(colisor1, "colisor_im", "assets/sprites/plataform.png", 2);
+    ImageComponent colisorIm(colisor1, "colisor_im", "assets/sprites/retangulo_1.png", 2);
     PlataformController pc(colisor1, "colisor1");
 
     colisor1.add_component(colisorIm);
     colisor1.add_component(pc);
-    maps.add_component(maps_stage);
+    // maps.add_component(maps_stage);
 
     GameObject donkey_player("donkey_player", 3);
     donkey_player.main_positionX = 150;

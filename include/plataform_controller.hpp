@@ -12,8 +12,8 @@ using namespace engine;
 
 class PlataformController : public Component{
 public:
-  PlataformController(GameObject &_main_game_object, std::string component_id):
-    Component(_main_game_object,component_id), walkDown(false), walkUp(false),
+  PlataformController(GameObject &main_game_object, std::string id):
+    Component(main_game_object,id), walkDown(false), walkUp(false),
                                                walkLeft(false), walkRight(false){}
 
     ~PlataformController();

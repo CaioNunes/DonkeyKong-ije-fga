@@ -28,7 +28,7 @@ namespace engine{
         //Constructor
         GameObject(std::string name, int p_priority, bool collision = false,std::string m_type = "", State state=State::enabled)
         : main_positionX(0), main_positionY(0), main_width(0), main_height(0), main_rotation(0),m_collision(collision),
-        type(m_type), main_state(state), main_name(name), priority(p_priority){}
+        type(m_type), priority(p_priority), main_state(state), main_name(name){}
 
         virtual ~GameObject(){};
 
@@ -60,8 +60,8 @@ namespace engine{
         int main_width, main_height;
         int main_rotation;
         bool m_collision;
-        int priority;
         std::string type;
+        int priority;
 
     private:
         State main_state;

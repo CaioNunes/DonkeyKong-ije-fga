@@ -34,8 +34,8 @@ bool compare_scene(engine::GameObject* a, GameObject *b){
 // }
 
 void Scene::print_scene_objects(){
-    Log::instance.info("====PRINTANDO LISTA DE OBJETOS DA CENA EM ORDEM====");
-    for(int i=0; i<scene_objects.size(); i++){
+    Log::instance.info("====PRINTANDO LISTA DE OBJETOS DA CENA EM ORDEM CRESCENTE DE PRIORIDADE====");
+    for(unsigned int i=0; i<scene_objects.size(); i++){
         Log::instance.info(scene_objects[i]->name());
     }
     Log::instance.info("===================================================");
