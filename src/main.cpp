@@ -9,6 +9,7 @@
 #include "stage.hpp"
 #include "menu.hpp"
 #include "player_controller.hpp"
+#include "plataform_controller.hpp"
 
 using namespace engine;
 
@@ -50,15 +51,25 @@ int main(int, char **){
     GameObject maps("maps", 2);
     // ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
     ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo_stage_resized.png",2);
-
     maps.main_positionY = 0;
-
-    maps_stage.set_back_rect(0, 0, 640,480);
+    maps_stage.set_back_rect(0, 250, 640,480);
     // maps_stage.set_back_rect(0, 0, 840,640);
 
+    GameObject colisor1("colisor1", 3, true, "ground");
+    colisor1.main_positionX = 150;
+    colisor1.main_positionY = 250;
+    // colisor1.main_positionY = 200;
+    ImageComponent colisorIm(colisor1, "colisor_im", "assets/sprites/plataform.png", 2);
+    PlataformController pc(colisor1, "colisor1");
+
+    colisor1.add_component(colisorIm);
+    colisor1.add_component(pc);
     maps.add_component(maps_stage);
 
     GameObject donkey_player("donkey_player", 3);
+    donkey_player.main_positionX = 150;
+    donkey_player.main_positionY = 200;
+
     AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
 
     PlayerController player_controller(donkey_player, "donkey_player", &maps_stage);
@@ -79,13 +90,11 @@ int main(int, char **){
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
 
-    donkey_player.main_positionX = 150;
-    donkey_player.main_positionY = 100;
-
     stage.add_game_object(&music_background);
     stage.add_game_object(&maps);
     stage.add_game_object(&donkey_player);
     stage.add_game_object(&background_stage);
+    stage.add_game_object(&colisor1);
 
     stage.print_scene_objects();
     Game::instance.run();

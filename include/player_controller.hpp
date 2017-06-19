@@ -20,8 +20,13 @@ public:
 
     bool init();
     void update();
-
+    void onCollision();
     void move_player();
+
+    void gravity();
+    void jump_player();
+    void processPos();
+    bool hasGround();
 
 private:
     bool walkDown;
