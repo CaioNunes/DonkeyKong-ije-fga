@@ -10,6 +10,7 @@
 #include "menu.hpp"
 #include "player_controller.hpp"
 #include "plataform_controller.hpp"
+#include "alligator_controller.hpp"
 
 using namespace engine;
 
@@ -78,10 +79,31 @@ int main(int, char **){
 
     donkeyCtrl.add_animation("donkey_idle", donkey_idle);
 
-    donkey_player.add_component(donkey_walking);
     donkey_player.add_component(donkey_idle);
+    donkey_player.add_component(donkey_walking);
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
+
+    // ===================== MONSTROS  =========================
+
+    GameObject alligator1("alligator1", 3, true, "mob");
+    alligator1.main_positionX = 300;
+    alligator1.main_positionY = 200;
+
+    AnimationControllerComponent alligator1Ctrl(alligator1, "animationControllerJacare1");
+
+    Animation alligator1_walking(alligator1, "alligator1_walking", "assets/sprites/andar_mob.png", 1, 1000/8, 100, 8);
+    alligator1_walking.setDelay(100);
+
+    alligator1Ctrl.add_animation("alligator1_walking", alligator1_walking);
+
+    AlligatorController alligator1_controller(alligator1, "alligator1", &maps_stage);
+    PlataformController alligator_fix1(alligator1, &player_controller, "alligator1");
+
+    alligator1.add_component(alligator_fix1);
+    alligator1.add_component(alligator1_walking);
+    alligator1.add_component(alligator1Ctrl);
+    alligator1.add_component(alligator1_controller);
 
     // ===================== COLISORES =========================
 
@@ -419,6 +441,7 @@ int main(int, char **){
     stage.add_game_object(&maps);
     stage.add_game_object(&donkey_player);
     stage.add_game_object(&background_stage);
+    stage.add_game_object(&alligator1);
     stage.add_game_object(&colisor1);
     stage.add_game_object(&colisor2);
     stage.add_game_object(&colisor3);
