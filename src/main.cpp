@@ -12,6 +12,7 @@
 #include "plataform_controller.hpp"
 #include "alligator_controller.hpp"
 #include "lose.hpp"
+#include "start.hpp"
 
 using namespace engine;
 
@@ -33,6 +34,18 @@ int main(int, char **){
     background_menu.add_component(background_menu_image);
 
     menu.add_game_object(&background_menu);
+
+    // =========================== LOSE SCREEN ============================
+    StartScene start("start");
+    Game::instance.add_scene(start);
+
+    GameObject background_start("background_start", 1);
+
+    ImageComponent background_start_image(background_start,"imageBackground_start", "assets/sprites/start.png", 3);
+
+    background_start.add_component(background_start_image);
+
+    start.add_game_object(&background_start);
 
     //================================================= SOLO STAGE =======================================
     StageScene stage("WaterStage");
