@@ -12,9 +12,9 @@ using namespace engine;
 
 class PlayerController : public Component{
 public:
-  PlayerController(GameObject &main_game_object, std::string id, ImageComponent *background):
+  PlayerController(GameObject &main_game_object, std::string id, ImageComponent *background, AnimationControllerComponent *pAnimCtrl):
     Component(main_game_object,id), limit(true), walkDown(false), walkUp(false),
-                                               walkLeft(false), walkRight(false), back(background){}
+                                               walkLeft(false), walkRight(false), back(background), isRightPlayer(true), animCtrl(pAnimCtrl){}
 
     ~PlayerController();
 
@@ -36,7 +36,8 @@ private:
     bool walkLeft;
     bool walkRight;
     ImageComponent *back;
-
+    bool isRightPlayer;
+    AnimationControllerComponent *animCtrl;
 };
 
 #endif

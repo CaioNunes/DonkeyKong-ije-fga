@@ -62,9 +62,9 @@ namespace engine{
         bool m_collision;
         std::string type;
         int priority;
+        State main_state;
 
     private:
-        State main_state;
         std::string main_name;
         /*Mapa não ordenado que vai armazenar todos os componentes do game object. A chave será definida pelo
         tipo do componente, e o valor será uma lista de componentes daquele tipo (Sprites,audios,etc)*/

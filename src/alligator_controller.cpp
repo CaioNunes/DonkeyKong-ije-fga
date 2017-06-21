@@ -11,11 +11,13 @@ GameObject *ground_alligator;
 bool AlligatorController::init() {
     min = _main_game_object->main_positionX - 100;
     max = _main_game_object->main_positionX + 100;
+    animController->flipping(!isRight);
 
     return true;
 }
 
 void AlligatorController::update(){
+    animController->play_animation("alligator1_walking");
     head->main_positionX = _main_game_object->main_positionX + (_main_game_object->main_width / 2.0);
     head->main_positionY = _main_game_object->main_positionY - 10.0;
 
@@ -55,6 +57,9 @@ void AlligatorController::onCollision(){
     }
 
     if(Game::instance.collision_manager->checkCollision(head, "player")){
+        head->setState(GameObject::State::disabled);
+        head->shutdown();
+        _main_game_object->setState(GameObject::State::disabled);
         _main_game_object->shutdown();
         // _main_game_object->setState(GameObject::State::disabled);
     }

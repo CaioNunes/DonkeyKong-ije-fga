@@ -12,9 +12,9 @@ using namespace engine;
 
 class AlligatorController : public Component{
 public:
-  AlligatorController(GameObject &main_game_object, GameObject *phead, std::string id, ImageComponent *background):
+  AlligatorController(GameObject &main_game_object, GameObject *phead, std::string id, ImageComponent *background, AnimationControllerComponent *alligator_anim_controller):
     Component(main_game_object,id), head(phead), walkRightAlligator(true), walkDown(false),
-                                    min(0), max(0), back(background){}
+                                    min(0), max(0), back(background), isRight(false), animController(alligator_anim_controller){}
 
     ~AlligatorController();
 
@@ -35,7 +35,8 @@ private:
     double min;
     double max;
     ImageComponent *back;
-
+    bool isRight;
+    AnimationControllerComponent *animController;
 
 };
 

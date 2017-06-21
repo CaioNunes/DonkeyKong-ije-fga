@@ -66,8 +66,6 @@ int main(int, char **){
 
     AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
 
-    PlayerController player_controller(donkey_player, "donkey_player", &maps_stage);
-
     // Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/walking.png", 1, 980/20, 44, 20);
     Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/walking_resized.png", 1, 2040/20, 92, 20);
     donkey_walking.setDelay(60);
@@ -79,15 +77,29 @@ int main(int, char **){
 
     donkeyCtrl.add_animation("donkey_idle", donkey_idle);
 
+    Animation donkey_die(donkey_player, "donkey_die", "assets/sprites/die_resized.png", 1, 2019/18 , 108, 18);
+    donkey_die.setDelay(150);
+
+    donkeyCtrl.add_animation("donkey_die", donkey_die);
+
+    PlayerController player_controller(donkey_player, "donkey_player", &maps_stage, &donkeyCtrl);
+    // Animation donkey_die_solo(donkey_player, "donkey_die_solo", "assets/sprites/die_resized.png", 1, 2019/18 , 108, 18);
+    // donkey_die_solo.setDelay(200);
+    // donkey_die_solo.setAnimation("donkey_die_solo", 1,2);
+
+    // donkeyCtrl.add_animation("donkey_die_solo", donkey_die_solo);
+
     donkey_player.add_component(donkey_idle);
     donkey_player.add_component(donkey_walking);
+    donkey_player.add_component(donkey_die);
+    // donkey_player.add_component(donkey_die_solo);
     donkey_player.add_component(donkeyCtrl);
     donkey_player.add_component(player_controller);
 
     // ===================== MONSTROS  =========================
     GameObject teste("teste", 3, true, "mob_head");
     teste.main_positionX = 300;
-    teste.main_positionY = 300;
+    teste.main_positionY = 320;
 
     ImageComponent testeIm1(teste, "teste_im1", "assets/sprites/stairs.png", 2);
 
@@ -103,7 +115,7 @@ int main(int, char **){
 
     alligator1Ctrl.add_animation("alligator1_walking", alligator1_walking);
 
-    AlligatorController alligator1_controller(alligator1, &teste, "alligator1", &maps_stage);
+    AlligatorController alligator1_controller(alligator1, &teste, "alligator1", &maps_stage, &alligator1Ctrl);
     PlataformController alligator_fix1(alligator1, &player_controller, "alligator1");
 
     alligator1.add_component(alligator_fix1);

@@ -10,11 +10,15 @@ double aceleration = 0;
 float prev_position_y = 0;
 GameObject *ground;
 
-bool PlayerController::init() { return true; }
+bool PlayerController::init() {
+    animCtrl->flipping(!isRightPlayer);
+
+    return true;
+}
 
 void PlayerController::update(){
-    gravity();
     move_player();
+    gravity();
     jump_player();
     processPos();
 }
@@ -54,54 +58,46 @@ void PlayerController::onCollision(){
     if(Game::instance.collision_manager->checkCollision(_main_game_object, "ground")){
         walkDown = false;
     }
+
+    // if(Game::instance.collision_manager->checkCollision(_main_game_object, "mob_head"))
+        // killEnemy = true;
+    // } else{
+    if(Game::instance.collision_manager->checkCollision(_main_game_object, "mob")){
+        walkDown = false;
+        animCtrl->play_animation("donkey_die", true);
+        // animCtrl->play_animation("donkey_die_solo");
+    }
+
+    // }
 }
 
 void PlayerController::move_player(){
-    //Move down
-    if(Game::instance.input_manager().is_button_down("down"))
-        walkDown = true;
-
-    if(Game::instance.input_manager().is_button_up("down"))
-        walkDown = false;
+    // //Move down
+    // if(Game::instance.input_manager().is_button_down("down"))
+    //     walkDown = true;
+    //
+    // if(Game::instance.input_manager().is_button_up("down"))
+    //     walkDown = false;
 
     onCollision();
 
-    if(walkDown){
-        if(back->move_img_down(moveSide, 700)){
-
-        }else{
-            _main_game_object->main_positionY += gravityForce;
-        }
-        // if(back->move_img_down(moveSide, 3000)){
-        //
-        // }else{
-        //     _main_game_object->main_positionY += moveSide;
-        // }
-    }
-    //Move Up
-    if(Game::instance.input_manager().is_button_down("up"))
-        walkUp = true;
-
-    if(Game::instance.input_manager().is_button_up("up"))
-        walkUp = false;
-
-    if(walkUp){
-        // if(back->move_img_down(-(moveSide), 700)){
-        //
-        // }else{
-        //     jump_player();
-        //     aceleration += 10;
-        //     _main_game_object->main_positionY -= jumpForce;
-        // }
-        // if(back->move_img_down(-(moveSide), 3000)){
-        //
-        // }else{
-        //     _main_game_object->main_positionY -= moveSide;
-        // }
-    }
+    // if(walkDown){
+    //     if(back->move_img_down(moveSide, 700)){
+    //
+    //     }else{
+    //         _main_game_object->main_positionY += gravityForce;
+    //     }
+    //     // if(back->move_img_down(moveSide, 3000)){
+    //     //
+    //     // }else{
+    //     //     _main_game_object->main_positionY += moveSide;
+    //     // }
+    // }
     //Move Right
-    if(Game::instance.input_manager().is_button_down("right"))
+    if(Game::instance.input_manager().is_button_down("right")){
         walkRight = true;
+        // isRightPlayer = true;
+    }
 
     if(Game::instance.input_manager().is_button_up("right"))
         walkRight = false;
@@ -117,6 +113,7 @@ void PlayerController::move_player(){
     //Move Left
     if(Game::instance.input_manager().is_button_down("left")){
         walkLeft = true;
+        // isRightPlayer = false;
     }
 
     if(Game::instance.input_manager().is_button_up("left"))
