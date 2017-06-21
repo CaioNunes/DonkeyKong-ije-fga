@@ -16,8 +16,12 @@ bool AlligatorController::init() {
 }
 
 void AlligatorController::update(){
+    head->main_positionX = _main_game_object->main_positionX + (_main_game_object->main_width / 2.0);
+    head->main_positionY = _main_game_object->main_positionY - 10.0;
+
     gravity();
     processPos();
+    onCollision();
     // move();
 }
 
@@ -49,6 +53,12 @@ void AlligatorController::onCollision(){
     if(Game::instance.collision_manager->checkCollision(_main_game_object, "ground")){
         walkDown = false;
     }
+
+    if(Game::instance.collision_manager->checkCollision(head, "player")){
+        _main_game_object->shutdown();
+        // _main_game_object->setState(GameObject::State::disabled);
+    }
+
 }
 
 void AlligatorController::move(){

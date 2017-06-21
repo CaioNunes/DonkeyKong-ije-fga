@@ -12,8 +12,8 @@ using namespace engine;
 
 class AlligatorController : public Component{
 public:
-  AlligatorController(GameObject &main_game_object, std::string id, ImageComponent *background):
-    Component(main_game_object,id), walkRightAlligator(true), walkDown(false),
+  AlligatorController(GameObject &main_game_object, GameObject *phead, std::string id, ImageComponent *background):
+    Component(main_game_object,id), head(phead), walkRightAlligator(true), walkDown(false),
                                     min(0), max(0), back(background){}
 
     ~AlligatorController();
@@ -27,12 +27,15 @@ public:
     void processPos();
     bool hasGround();
 
+    GameObject *head;
+
 private:
     bool walkRightAlligator;
     bool walkDown;
     double min;
     double max;
     ImageComponent *back;
+
 
 };
 

@@ -60,7 +60,7 @@ int main(int, char **){
     maps.add_component(maps_stage);
 
     // ==================== PLAYER ===========================
-    GameObject donkey_player("donkey_player", 3);
+    GameObject donkey_player("donkey_player", 3, true, "player");
     donkey_player.main_positionX = 150;
     donkey_player.main_positionY = 200;
 
@@ -85,10 +85,16 @@ int main(int, char **){
     donkey_player.add_component(player_controller);
 
     // ===================== MONSTROS  =========================
+    GameObject teste("teste", 3, true, "mob_head");
+    teste.main_positionX = 300;
+    teste.main_positionY = 300;
+
+    ImageComponent testeIm1(teste, "teste_im1", "assets/sprites/stairs.png", 2);
+
+    teste.add_component(testeIm1);
 
     GameObject alligator1("alligator1", 3, true, "mob");
     alligator1.main_positionX = 300;
-    alligator1.main_positionY = 200;
 
     AnimationControllerComponent alligator1Ctrl(alligator1, "animationControllerJacare1");
 
@@ -97,13 +103,14 @@ int main(int, char **){
 
     alligator1Ctrl.add_animation("alligator1_walking", alligator1_walking);
 
-    AlligatorController alligator1_controller(alligator1, "alligator1", &maps_stage);
+    AlligatorController alligator1_controller(alligator1, &teste, "alligator1", &maps_stage);
     PlataformController alligator_fix1(alligator1, &player_controller, "alligator1");
 
     alligator1.add_component(alligator_fix1);
     alligator1.add_component(alligator1_walking);
     alligator1.add_component(alligator1Ctrl);
     alligator1.add_component(alligator1_controller);
+
 
     // ===================== COLISORES =========================
 
@@ -472,6 +479,7 @@ int main(int, char **){
     stage.add_game_object(&plataform7);
     stage.add_game_object(&stairs1);
     stage.add_game_object(&stairs2);
+    stage.add_game_object(&teste);
 
 // ========================================= WATER STAGE =================================
     // StageScene stage("WaterStage");
