@@ -1,13 +1,5 @@
 #include "alligator_controller.hpp"
 
-double gravityForce_alligator = 1;
-// double moveSide_alligator = 3;
-double moveSide_alligator = 5;
-double velocity_alligator = 0;
-double aceleration_alligator = 0;
-float prev_position_y_alligator = 0;
-GameObject *ground_alligator;
-
 bool AlligatorController::init() {
     min = _main_game_object->main_positionX - 100;
     max = _main_game_object->main_positionX + 100;

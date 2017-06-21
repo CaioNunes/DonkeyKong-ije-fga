@@ -10,8 +10,13 @@ double aceleration = 0;
 float prev_position_y = 0;
 bool isMove = false;
 GameObject *ground;
+GameObject *wallLeft;
+GameObject *wallRight;
 
 bool PlayerController::init() {
+    printf("Executei o init\n");
+    _main_game_object->main_positionY = 200;
+    _main_game_object->main_positionX = 150;
     animCtrl->flipping(!isRightPlayer);
 
     return true;
@@ -27,6 +32,10 @@ void PlayerController::update(){
     gravity();
     jump_player();
     processPos();
+
+    if(_main_game_object->main_positionY >= 1000){
+        Game::instance.change_scene("Lose");
+    }
 }
 
 void PlayerController::gravity(){
@@ -65,16 +74,29 @@ void PlayerController::onCollision(){
         walkDown = false;
     }
 
-    // if(Game::instance.collision_manager->checkCollision(_main_game_object, "mob_head"))
-        // killEnemy = true;
-    // } else{
+    wallRight = Game::instance.collision_manager->checkCollision(_main_game_object, "wallRight");
+    //
+    if(wallRight)
+        _main_game_object->main_positionX = wallRight->main_positionX - wallRight->main_width;
+    //
+    wallLeft = Game::instance.collision_manager->checkCollision(_main_game_object, "wallLeft");
+    //
+    if(wallLeft)
+        _main_game_object->main_positionX = wallLeft->main_positionX + wallLeft->main_width;
+
     if(Game::instance.collision_manager->checkCollision(_main_game_object, "mob")){
         walkDown = false;
-        animCtrl->play_animation("donkey_die", true);
-        // animCtrl->play_animation("donkey_die_solo");
+        walkRight = false;
+        walkLeft = false;
+        Game::instance.change_scene("Lose");
     }
 
-    // }
+    if(Game::instance.collision_manager->checkCollision(_main_game_object, "exit")){
+        walkDown = false;
+        walkRight = false;
+        walkLeft = false;
+        Game::instance.change_scene("Lose");
+    }
 }
 
 void PlayerController::move_player(){
