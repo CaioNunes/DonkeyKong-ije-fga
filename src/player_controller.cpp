@@ -1,6 +1,6 @@
 #include "player_controller.hpp"
 
-double jumpForce = 10;
+double jumpForce = 20;
 double gravityForce = 1;
 bool jump = false;
 // double moveSide = 3;
@@ -72,6 +72,11 @@ void PlayerController::move_player(){
         }else{
             _main_game_object->main_positionY += gravityForce;
         }
+        // if(back->move_img_down(moveSide, 3000)){
+        //
+        // }else{
+        //     _main_game_object->main_positionY += moveSide;
+        // }
     }
     //Move Up
     if(Game::instance.input_manager().is_button_down("up"))
@@ -82,11 +87,16 @@ void PlayerController::move_player(){
 
     if(walkUp){
         // if(back->move_img_down(-(moveSide), 700)){
-
+        //
         // }else{
-            // jump_player();
-            // aceleration += 10;
-            // _main_game_object->main_positionY -= jumpForce;
+        //     jump_player();
+        //     aceleration += 10;
+        //     _main_game_object->main_positionY -= jumpForce;
+        // }
+        // if(back->move_img_down(-(moveSide), 3000)){
+        //
+        // }else{
+        //     _main_game_object->main_positionY -= moveSide;
         // }
     }
     //Move Right
