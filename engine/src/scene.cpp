@@ -9,29 +9,6 @@ using namespace engine;
 bool compare_scene(engine::GameObject* a, GameObject *b){
     return a->priority < b->priority;
 }
-//
-// GameObject &Scene::get_game_object(const std::string &id){
-//
-//     if(scene_objects.find(id) == scene_objects.end()){
-//         Log::instance.warning("Não foi possível encontrar o GameObject '" + id +"'.");
-//         return INVALID_GAME_OBJECT;
-//     }
-//
-//     return *scene_objects[id];
-// }
-//
-// bool Scene::remove_game_object(const std::string &id){
-//
-//     Log::instance.info("Removendo GameObject '" + id +"' da Scene.");
-//
-//     if(scene_objects.find(id) == scene_objects.end()){
-//         Log::instance.warning("Não foi possível encontrar o GameObject '" + id +"'.");
-//         return false;
-//     }
-//
-//     scene_objects.erase(id);
-//     return true;
-// }
 
 void Scene::print_scene_objects(){
     Log::instance.info("====PRINTANDO LISTA DE OBJETOS DA CENA EM ORDEM CRESCENTE DE PRIORIDADE====");
