@@ -11,21 +11,21 @@
 #include "player_controller.hpp"
 #include "plataform_controller.hpp"
 #include "alligator_controller.hpp"
+#include "lose.hpp"
 
 using namespace engine;
 
 int main(int, char **){
 
     //Configurando nome e tamanho
-    // std::pair<int, int> window_size(640, 480);
     std::pair<int, int> window_size(1280, 768);
     Game::instance.set_properties("Donkey Kong Country",window_size);
 
-    // //================================================= MENU =======================================
+    //================================================= MENU =======================================
     // MenuScene menu("Menu");
     // Game::instance.add_scene(menu);
     //
-    // GameObject background_menu("background_menu");
+    // GameObject background_menu("background_menu", 1);
     // ImageComponent background_menu_image(background_menu,"imageBackground_menu", "assets/sprites/menu.png",1);
     //
     // //Objeto atrelado, ID para audio, caminho, is_music e play_on_start(default é true)
@@ -34,7 +34,7 @@ int main(int, char **){
     // background_menu.add_component(menu_music);
     // background_menu.add_component(background_menu_image);
     //
-    // menu.add_game_object(background_menu);
+    // menu.add_game_object(&background_menu);
 
     //================================================= SOLO STAGE =======================================
     StageScene stage("WaterStage");
@@ -52,7 +52,7 @@ int main(int, char **){
 
     GameObject maps("maps", 2);
     // ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo_stage_resized.png",2);
-    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo_stage_new_2.png",2);
+    ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo.png",2);
 
     maps.main_positionY = 0;
     // maps_stage.set_back_rect(0, 250, 640,480);
@@ -67,7 +67,7 @@ int main(int, char **){
     AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
 
     // Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/walking.png", 1, 980/20, 44, 20);
-    Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/walking_resized.png", 1, 2040/20, 92, 20);
+    Animation donkey_walking(donkey_player, "donkey_walking", "assets/sprites/run.png", 1, 2600/20, 93, 20);
     donkey_walking.setDelay(60);
 
     donkeyCtrl.add_animation("donkey_walking", donkey_walking);
@@ -454,9 +454,8 @@ int main(int, char **){
 
     stairs2.add_component(stairsIm2);
     stairs2.add_component(s2);
-// =======================================================================
 
-    // stage.add_game_object(&music_background);
+    stage.add_game_object(&music_background);
     stage.add_game_object(&maps);
     stage.add_game_object(&donkey_player);
     stage.add_game_object(&background_stage);
@@ -493,57 +492,23 @@ int main(int, char **){
     stage.add_game_object(&stairs2);
     stage.add_game_object(&teste);
 
-// ========================================= WATER STAGE =================================
-    // StageScene stage("WaterStage");
-    // Game::instance.add_scene(stage);
+// =========================== LOSE SCREEN ============================
+    // LoseScene lose("Lose");
+    // Game::instance.add_scene(lose);
     //
-    // GameObject music_background("music_background", 4);
+    // GameObject music_background_lose("music_background_lose", 4);
     //
-    // GameObject background_stage("background_stage", 1);
-    // ImageComponent background_stage_image(background_stage,"imageBackground_stage", "assets/sprites/background_stage.png", 3);
+    // GameObject background_lose("background_lose", 1);
+    // ImageComponent background_lose_image(background_lose,"imageBackground_lose", "assets/sprites/lose_screen.png", 3);
     //
-    // AudioComponent stage_music(music_background, "stage_music", "assets/music/dk_stage.mp3", true);
+    // // AudioComponent stage_music(music_background_lose, "stage_music", "assets/music/dk_solo.mp3", true);
     //
-    // music_background.add_component(stage_music);
-    // background_stage.add_component(background_stage_image);
-    //
-    // GameObject maps("maps", 2);
-    // ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/maps_resized.png",2);
-    // // maps.main_positionY = -2200;
-    // maps_stage.set_back_rect(0, 2200, 1280,768);
-    // maps.add_component(maps_stage);
-    //
-    // // ==================== PLAYER ===========================
-    // GameObject donkey_player("donkey_player", 3);
-    // donkey_player.main_positionX = 150;
-    // donkey_player.main_positionY = 200;
-    //
-    // AnimationControllerComponent donkeyCtrl(donkey_player, "animationControllerDonkey");
-    //
-    // PlayerController player_controller(donkey_player, "donkey_player", &maps_stage);
-    //
-    // Animation donkey_swimming(donkey_player, "donkey_walking", "assets/sprites/donkey.png", 1, 2790/15, 141, 15);
-    // donkey_swimming.setDelay(100);
-    //
-    // donkeyCtrl.add_animation("donkey_swimming", donkey_swimming);
-    //
-    // // Animation donkey_idle(donkey_player, "donkey_idle", "assets/sprites/donkey_idle.png", 1, 2499/51 , 54, 51);
-    // // donkey_idle.setDelay(100);
-    //
-    // // donkeyCtrl.add_animation("donkey_idle", donkey_idle);
-    //
-    // donkey_player.add_component(donkey_swimming);
-    // // donkey_player.add_component(donkey_idle);
-    // donkey_player.add_component(donkeyCtrl);
-    // donkey_player.add_component(player_controller);
-    //
-    // stage.add_game_object(&music_background);
-    // stage.add_game_object(&maps);
-    // stage.add_game_object(&donkey_player);
-    // stage.add_game_object(&background_stage);
+    // // music_background_lose.add_component(stage_music);
+    // background_lose.add_component(background_lose_image);
+    // lose.add_game_object(&background_lose);
+    // lose.add_game_object(&music_background_lose);
+// =======================================================================
 
-
-    stage.print_scene_objects();
     Game::instance.run();
 
     return 0;

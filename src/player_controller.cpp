@@ -8,6 +8,7 @@ double moveSide = 5;
 double velocity = 0;
 double aceleration = 0;
 float prev_position_y = 0;
+bool isMove = false;
 GameObject *ground;
 
 bool PlayerController::init() {
@@ -18,6 +19,11 @@ bool PlayerController::init() {
 
 void PlayerController::update(){
     move_player();
+    if(!isMove){
+        animCtrl->play_animation("donkey_idle");
+    }else{
+        animCtrl->play_animation("donkey_walking");
+    }
     gravity();
     jump_player();
     processPos();
@@ -80,7 +86,7 @@ void PlayerController::move_player(){
     //     walkDown = false;
 
     onCollision();
-
+    //
     // if(walkDown){
     //     if(back->move_img_down(moveSide, 700)){
     //
@@ -96,11 +102,14 @@ void PlayerController::move_player(){
     //Move Right
     if(Game::instance.input_manager().is_button_down("right")){
         walkRight = true;
-        // isRightPlayer = true;
+        isMove = true;
+        isRightPlayer = true;
     }
 
-    if(Game::instance.input_manager().is_button_up("right"))
+    if(Game::instance.input_manager().is_button_up("right")){
         walkRight = false;
+        isMove = false;
+    }
 
     if(walkRight){
         if(back->move_img_rect(moveSide)){
@@ -113,11 +122,14 @@ void PlayerController::move_player(){
     //Move Left
     if(Game::instance.input_manager().is_button_down("left")){
         walkLeft = true;
-        // isRightPlayer = false;
+        isMove = true;
+        isRightPlayer = false;
     }
 
-    if(Game::instance.input_manager().is_button_up("left"))
+    if(Game::instance.input_manager().is_button_up("left")){
         walkLeft = false;
+        isMove = false;
+    }
 
     if(walkLeft){
         if(back->move_img_rect(-(moveSide))){
