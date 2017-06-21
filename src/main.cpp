@@ -293,6 +293,126 @@ int main(int, char **){
     colisor19.add_component(colisorIm19);
     colisor19.add_component(pc19);
 
+    GameObject colisor20("colisor20", 3, true, "ground");
+    // colisor3.main_positionX = 20520;
+    colisor20.main_positionX = 7170;
+    colisor20.main_positionY = 520;
+
+    ImageComponent colisorIm20(colisor20, "colisor_im20", "assets/sprites/retangulo_30.png", 2);
+    PlataformController pc20(colisor20, &player_controller, "colisor20");
+
+    colisor20.add_component(colisorIm20);
+    colisor20.add_component(pc20);
+
+    GameObject colisor21("colisor21", 3, true, "ground");
+    // colisor3.main_positionX = 21521;
+    colisor21.main_positionX = 7500;
+    colisor21.main_positionY = 650;
+
+    ImageComponent colisorIm21(colisor21, "colisor_im21", "assets/sprites/retangulo_30.png", 2);
+    PlataformController pc21(colisor21, &player_controller, "colisor21");
+
+    colisor21.add_component(colisorIm21);
+    colisor21.add_component(pc21);
+
+    GameObject plataform1("plataform1", 3, true, "ground");
+    // colisor3.main_positionX = 21521;
+    plataform1.main_positionX = 1240;
+    plataform1.main_positionY = 260;
+
+    ImageComponent plataformIm1(plataform1, "plataform_im1", "assets/sprites/redim.png", 2);
+    PlataformController ps1(plataform1, &player_controller, "plataform1");
+
+    plataform1.add_component(plataformIm1);
+    plataform1.add_component(ps1);
+
+    GameObject plataform2("plataform2", 3, true, "ground");
+    // colisor3.main_positionX = 21521;
+    plataform2.main_positionX = 1540;
+    plataform2.main_positionY = 120;
+
+    ImageComponent plataformIm2(plataform2, "plataform_im2", "assets/sprites/min.png", 2);
+    PlataformController ps2(plataform2, &player_controller, "plataform2");
+
+    plataform2.add_component(plataformIm2);
+    plataform2.add_component(ps2);
+
+    GameObject plataform3("plataform3", 3, true, "ground");
+    // colisor3.main_positionX = 31531;
+    plataform3.main_positionX = 1950;
+    plataform3.main_positionY = 250;
+
+    ImageComponent plataformIm3(plataform3, "plataform_im3", "assets/sprites/plataform2.png", 2);
+    PlataformController ps3(plataform3, &player_controller, "plataform3");
+
+    plataform3.add_component(plataformIm3);
+    plataform3.add_component(ps3);
+
+    GameObject plataform4("plataform4", 3, true, "ground");
+    // colisor3.main_positionX = 31531;
+    plataform4.main_positionX = 2200;
+    plataform4.main_positionY = 250;
+
+    ImageComponent plataformIm4(plataform4, "plataform_im4", "assets/sprites/plataform2.png", 2);
+    PlataformController ps4(plataform4, &player_controller, "plataform4");
+
+    plataform4.add_component(plataformIm4);
+    plataform4.add_component(ps4);
+
+    GameObject plataform5("plataform5", 3, true, "ground");
+    // colisor3.main_positionX = 31531;
+    plataform5.main_positionX = 2530;
+    plataform5.main_positionY = 270;
+
+    ImageComponent plataformIm5(plataform5, "plataform_im5", "assets/sprites/plataform2.png", 2);
+    PlataformController ps5(plataform5, &player_controller, "plataform5");
+
+    plataform5.add_component(plataformIm5);
+    plataform5.add_component(ps5);
+
+    GameObject plataform6("plataform6", 3, true, "ground");
+    // colisor3.main_positionX = 31631;
+    plataform6.main_positionX = 2750;
+    plataform6.main_positionY = 270;
+
+    ImageComponent plataformIm6(plataform6, "plataform_im6", "assets/sprites/plataform2.png", 2);
+    PlataformController ps6(plataform6, &player_controller, "plataform6");
+
+    plataform6.add_component(plataformIm6);
+    plataform6.add_component(ps6);
+
+    GameObject plataform7("plataform7", 3, true, "ground");
+    // colisor3.main_positionX = 31731;
+    plataform7.main_positionX = 3000;
+    plataform7.main_positionY = 270;
+
+    ImageComponent plataformIm7(plataform7, "plataform_im7", "assets/sprites/plataform2.png", 2);
+    PlataformController ps7(plataform7, &player_controller, "plataform7");
+
+    plataform7.add_component(plataformIm7);
+    plataform7.add_component(ps7);
+
+    GameObject stairs1("stairs1", 3, true, "ground");
+    // colisor3.main_positionX = 31731;
+    stairs1.main_positionX = 6180;
+    stairs1.main_positionY = 370;
+
+    ImageComponent stairsIm1(stairs1, "stairs_im1", "assets/sprites/stairs.png", 2);
+    PlataformController s1(stairs1, &player_controller, "stairs1");
+
+    stairs1.add_component(stairsIm1);
+    stairs1.add_component(s1);
+
+    GameObject stairs2("stairs2", 3, true, "ground");
+    // colisor3.main_positionX = 31731;
+    stairs2.main_positionX = 6190;
+    stairs2.main_positionY = 520;
+
+    ImageComponent stairsIm2(stairs2, "stairs_im2", "assets/sprites/stairs.png", 2);
+    PlataformController s2(stairs2, &player_controller, "stairs2");
+
+    stairs2.add_component(stairsIm2);
+    stairs2.add_component(s2);
 // =======================================================================
 
     // stage.add_game_object(&music_background);
@@ -318,6 +438,17 @@ int main(int, char **){
     stage.add_game_object(&colisor17);
     stage.add_game_object(&colisor18);
     stage.add_game_object(&colisor19);
+    stage.add_game_object(&colisor20);
+    stage.add_game_object(&colisor21);
+    stage.add_game_object(&plataform1);
+    stage.add_game_object(&plataform2);
+    stage.add_game_object(&plataform3);
+    stage.add_game_object(&plataform4);
+    stage.add_game_object(&plataform5);
+    stage.add_game_object(&plataform6);
+    stage.add_game_object(&plataform7);
+    stage.add_game_object(&stairs1);
+    stage.add_game_object(&stairs2);
 
 // ========================================= WATER STAGE =================================
     // StageScene stage("WaterStage");
