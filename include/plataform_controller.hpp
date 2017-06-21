@@ -7,14 +7,15 @@
 #include "game.hpp"
 #include "Logger.hpp"
 #include <utility>
+#include "player_controller.hpp"
 
 using namespace engine;
 
 class PlataformController : public Component{
 public:
-  PlataformController(GameObject &main_game_object, std::string id):
+  PlataformController(GameObject &main_game_object, PlayerController *main_player, std::string id):
     Component(main_game_object,id), walkDown(false), walkUp(false),
-                                               walkLeft(false), walkRight(false){}
+                                    walkLeft(false), walkRight(false), player(main_player){}
 
     ~PlataformController();
 
@@ -27,6 +28,7 @@ public:
     bool walkRight;
 
 private:
+    PlayerController *player;
     double moveForceUp = 7;
     double moveForceDown = 2;
     // double moveSide = 3;

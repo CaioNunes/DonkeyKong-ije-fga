@@ -13,7 +13,7 @@ using namespace engine;
 class PlayerController : public Component{
 public:
   PlayerController(GameObject &main_game_object, std::string id, ImageComponent *background):
-    Component(main_game_object,id), walkDown(false), walkUp(false),
+    Component(main_game_object,id), limit(true), walkDown(false), walkUp(false),
                                                walkLeft(false), walkRight(false), back(background){}
 
     ~PlayerController();
@@ -27,6 +27,8 @@ public:
     void jump_player();
     void processPos();
     bool hasGround();
+
+    bool limit;
 
 private:
     bool walkDown;

@@ -108,8 +108,9 @@ void PlayerController::move_player(){
 
     if(walkRight){
         if(back->move_img_rect(moveSide)){
-
+            limit = false;
         }else{
+            limit = true;
             _main_game_object->main_positionX += moveSide;
         }
     }
@@ -123,8 +124,9 @@ void PlayerController::move_player(){
 
     if(walkLeft){
         if(back->move_img_rect(-(moveSide))){
-
+            limit = false;
         }else{
+            limit = true;
             _main_game_object->main_positionX -= moveSide;
         }
     }
