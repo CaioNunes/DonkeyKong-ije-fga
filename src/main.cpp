@@ -13,6 +13,7 @@
 #include "alligator_controller.hpp"
 #include "lose.hpp"
 #include "start.hpp"
+#include "win.hpp"
 
 using namespace engine;
 
@@ -65,7 +66,6 @@ int main(int, char **){
     ImageComponent maps_stage(maps, "maps_stage", "assets/sprites/solo.png",2);
 
     maps.main_positionY = 0;
-    // maps_stage.set_back_rect(0, 250, 640,480);
     maps_stage.set_back_rect(0, 250, 1280,768);
     maps.add_component(maps_stage);
 
@@ -491,6 +491,17 @@ int main(int, char **){
     lose.add_game_object(&background_lose);
     lose.add_game_object(&music_background_lose);
 // =======================================================================
+
+    WinScene win("Win");
+    Game::instance.add_scene(win);
+
+    GameObject background_win("background_win", 1);
+
+    ImageComponent background_win_image(background_win,"imageBackground_win", "assets/sprites/win.png", 3);
+
+    background_win.add_component(background_win_image);
+
+    win.add_game_object(&background_win);
 
     Game::instance.run();
 

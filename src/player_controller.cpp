@@ -95,7 +95,7 @@ void PlayerController::onCollision(){
         walkDown = false;
         walkRight = false;
         walkLeft = false;
-        Game::instance.change_scene("Lose");
+        Game::instance.change_scene("Win");
     }
 }
 
